@@ -186,30 +186,26 @@ def write_cat_ads_to_csv(ads, directory, filename):
 
 # Celoten program poženemo v glavni funkciji
 
-def main(redownload=True, reparse=True):
+def main(redownload=False, reparse=False):
     """Funkcija izvede celoten del pridobivanja podatkov:
     1. Oglase prenese iz bolhe
     2. Lokalno html datoteko pretvori v lepšo predstavitev podatkov (seznam slovarjev)
     3. Podatke shrani v csv datoteko
     """
-    # Najprej v lokalno html datoteko shranimo glavno stran
-    ### save_frontpage(cats_frontpage_url, cat_directory, frontpage_filename)
-    # Zakomentirano, ker je html datoteka že na disku
-    # Opomba: html datoteko sem tudi ročno obrezal, da so v njej le
-    # relevantni podatki (samo oglasi)
+    if redownload:
+        # Najprej v lokalno html datoteko shranimo glavno stran
+        save_frontpage(cats_frontpage_url, cat_directory, frontpage_filename)
+        # Opomba: html datoteko sem tudi ročno obrezal, da so v njej le
+        # relevantni podatki (samo oglasi)
 
-    # Iz lokalne (html) datoteke preberemo podatke, najprej kot seznam blokov
-    # Podatke prebermo v lepšo obliko (seznam slovarjev)
-    # To vse je združeno v funkciji ads_from_file
-    ads = ads_from_file(cat_directory, frontpage_filename)
+    if reparse:
+        # Iz lokalne (html) datoteke preberemo podatke, najprej kot seznam blokov
+        # Podatke prebermo v lepšo obliko (seznam slovarjev)
+        # To vse je združeno v funkciji ads_from_file
+        ads = ads_from_file(cat_directory, frontpage_filename)
 
-    # Podatke shranimo v csv datoteko
-    write_cat_ads_to_csv(ads, cat_directory, csv_filename)
-
-    # Dodatno: S pomočjo parametrov funkcije main omogoči nadzor, ali se
-    # celotna spletna stran ob vsakem zagon prenese (četudi že obstaja)
-    # in enako za pretvorbo
-    # To sta redownload in reparse
+        # Podatke shranimo v csv datoteko
+        write_cat_ads_to_csv(ads, cat_directory, csv_filename)
 
 
 if __name__ == '__main__':
