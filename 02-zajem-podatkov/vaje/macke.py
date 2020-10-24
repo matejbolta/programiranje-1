@@ -85,12 +85,8 @@ def read_file_to_string(directory, filename):
 def page_to_ads(page_content):
     """Funkcija poišče posamezne oglase, ki se nahajajo v spletni strani in
     vrne njih seznam"""
-    pattern = re.compile(
-        r'<li class="EntityList-item EntityList-item--Regular'
-        r'(.*?)</article>',
-        re.DOTALL
-    )
-    return re.findall(pattern, page_content) # Vrne seznam oglasov
+    pattern = '<li class="EntityList-item EntityList-item--(Regular|Vau)(.*?)</article>'
+    return re.findall(pattern, page_content, flags=re.DOTALL) # Vrne seznam oglasov
 
 
 # Definirajte funkcijo, ki sprejme niz, ki predstavlja oglas, in izlušči
@@ -102,24 +98,23 @@ def get_dict_from_ad_block(block):
     in opisu ter vrne slovar, ki vsebuje ustrezne podatke
     """
     # Za DOTALL:
-    # Uporabili smo compile in na koncu dodali argument re.DOTALL
+    # Lahko uporabimo re.compile in na koncu dodamo argument re.DOTALL
     # Lahko pa to dodamo pri re.ime_metode, npr. re.search(pattern, block, re.DOTALL)
 
     # (?P<ime_grupe>.*?) za poimenovanje grupe
 
-    rx = re.compile(
-        r'<h3.*>(?P<name>.*?)</a></h3>'
+    rx = (
+        r'<h3.*?><a.*?>(?P<name>.*?)</a></h3>'
         r'.*?"pubdate">(?P<time>.*?)</time>'
-        r'.*?<strong class="price price--hrk">\s*?(?P<price>\d*)&',
-        re.DOTALL
+        r'.*?<strong class="price price--hrk">(?P<price>.*?)</strong>'
     )
 
-    data = re.search(rx, block)
+    data = re.search(rx, block[1], flags=re.DOTALL)
     ad_dict = data.groupdict()
 
     # Ker nimajo vsi oglasi podatka o lokaciji, to rešimo z dodatnim vzorcem
     rloc = re.compile(r'Lokacija: </span>(?P<location>.*?)<br />')
-    locdata = re.search(rloc, block)
+    locdata = re.search(rloc, block[1])
     if locdata is not None:
         ad_dict['location'] = locdata.group('location')
     else:
@@ -198,7 +193,10 @@ def main(redownload=True, reparse=True):
     3. Podatke shrani v csv datoteko
     """
     # Najprej v lokalno html datoteko shranimo glavno stran
-    save_frontpage(cats_frontpage_url, cat_directory, frontpage_filename)
+    ### save_frontpage(cats_frontpage_url, cat_directory, frontpage_filename)
+    # Zakomentirano, ker je html datoteka že na disku
+    # Opomba: html datoteko sem tudi ročno obrezal, da so v njej le
+    # relevantni podatki (samo oglasi)
 
     # Iz lokalne (html) datoteke preberemo podatke, najprej kot seznam blokov
     # Podatke prebermo v lepšo obliko (seznam slovarjev)
