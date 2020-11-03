@@ -17,3 +17,6 @@ _build
 *.synctex.gz
 
 .DS_Store
+
+test.ml
+test.py
