@@ -71,7 +71,7 @@ let multiply_repna xs =
   let rec aux acc xs =
     match xs with
     | [] -> acc
-    | x :: xs' -> aux (x * acc) xs'
+    | x' :: xs' -> aux (x' * acc) xs'
   in
   aux 1 xs
 
@@ -100,7 +100,7 @@ let rec sum_int_pairs = function
 (* x lahko že takoj razstavimo v (prvi, drugi) in izpustimo let in *)
 let rec sum_int_pairs' = function
   | [] -> []
-  | (x1, x2) :: xs -> (x1 + x2) :: (sum_int_pairs xs)
+  | (x1, x2) :: xs -> (x1 + x2) :: sum_int_pairs xs
 
 (*----------------------------------------------------------------------------*]
  Funkcija [get k list] poišče [k]-ti element v seznamu [list]. Številčenje
@@ -124,7 +124,7 @@ let rec get k list =
 (* Bolje oz edino pravilno *)
 let rec get' k list = match list with (* let rec get k = function *)
   | [] -> failwith "List too short."
-  | x :: xs -> (if k <= 0 then x else get (k - 1) xs)
+  | x :: xs -> if k <= 0 then x else get (k - 1) xs
 
 (*----------------------------------------------------------------------------*]
  Funkcija [double] podvoji pojavitve elementov v seznamu.
@@ -149,10 +149,9 @@ let rec double = function
 
 let rec insert x k = function (* Naredi match na list *)
   | [] -> [x] (* k je nepomemben, ker je zmanjkalo seznama *)
-  | y :: ys -> (
+  | y :: ys ->
     if k <= 0 then x :: y :: ys
     else y :: insert x (k - 1) ys
-  )
 
 (* Malo ekstra *)
 let rec insert' x k = function
@@ -171,9 +170,8 @@ let rec insert' x k = function
  - : int list * int list = ([1; 2; 3; 4; 5], [])
 [*----------------------------------------------------------------------------*)
 
-(* To ne deluje za negativne k-je *)
 let rec divide k list = match (k, list) with
-  | (0, xs) -> ([], xs)
+  | (k, list) when k <= 0 -> ([], list)
   | (_, []) -> ([], [])
   | (k', x :: xs) ->
     let (prvi, drugi) = divide (k' - 1) xs in
@@ -191,6 +189,11 @@ let rec rotate n list = match (n, list) with
   | (0, xs) -> xs
   | (_, []) -> failwith "Empty list given"
   | (n, x :: xs) -> rotate (n - 1) (xs @ [x])
+
+(* Z uporabo funkcije divide k list *)
+let rotate' n list =
+  let (list1, list2) = divide n list in
+  list2 @ list1
 
 (*----------------------------------------------------------------------------*]
  Funkcija [remove x list] iz seznama izbriše vse pojavitve elementa [x].
@@ -214,11 +217,11 @@ let rec remove x list = match list with
 [*----------------------------------------------------------------------------*)
 
 let is_palindrome list =
-  let rec obrni = function
+  let rec reverse = function
     | [] -> []
-    | x :: xs -> (obrni xs) @ [x]
+    | x :: xs -> reverse xs @ [x]
   in
-  list = obrni list
+  list = reverse list
 
 (*----------------------------------------------------------------------------*]
  Funkcija [max_on_components] sprejme dva seznama in vrne nov seznam, katerega
@@ -232,7 +235,7 @@ let is_palindrome list =
 let rec max_on_components l1 l2 = match (l1, l2) with
   | ([], _) -> []
   | (_, []) -> []
-  | (x :: xs, y :: ys) -> (if x >= y then x else y) :: max_on_components xs ys
+  | (x :: xs, y :: ys) -> (if x >= y then x else y) (* max x y *) :: max_on_components xs ys
 
 (*----------------------------------------------------------------------------*]
  Funkcija [second_largest] vrne drugo največjo vrednost v seznamu. Pri tem se
@@ -248,7 +251,7 @@ let second_largest list =
   let rec largest = function
     | [] -> failwith "Empty list."
     | x :: [] -> x
-    | x :: xs -> if x >= largest xs then x else largest xs
+    | x :: xs -> if x >= largest xs then x else largest xs (* max x (largest xs) *)
   in
   let list1 = remove (largest list) list in
   largest list1
