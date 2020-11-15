@@ -1,0 +1,1567 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naivni Bayesov klasifikator &#8212; Programiranje 1</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Uvod v OCaml" href="05-uvod-v-ocaml.html" />
+    <link rel="prev" title="Knjižnica Pandas" href="03-knjiznica-pandas.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Programiranje 1</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-uvod.html">
+   Programiranje 1
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Analiza podatkov
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-regularni-izrazi.html">
+   Regularni izrazi
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-zajem-podatkov.html">
+   Zajem podatkov
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-knjiznica-pandas.html">
+   Knjižnica Pandas
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Naivni Bayesov klasifikator
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Funkcijsko programiranje
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-uvod-v-ocaml.html">
+   Uvod v OCaml
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-funkcijsko-programiranje.html">
+   Funkcijsko programiranje
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-definicije-tipov.html">
+   Definicije tipov
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-ucinki-in-cistost.html">
+   Učinki in čistost
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Podatkovne strukture in algoritmi
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-iskalna-drevesa.html">
+   Iskalna drevesa
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-spremenljive-podatkovne-strukture.html">
+   Spremenljive podatkovne strukture
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-deli-in-vladaj.html">
+   Deli in vladaj
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-dinamicno-programiranje.html">
+   Dinamicno programiranje
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-memoizacija.html">
+   Memoizacija
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="_sources/04-naivni-bayesov-klasifikator.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/04-naivni-bayesov-klasifikator.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/matijapretnar/programiranje-1/zapiski?urlpath=tree/04-naivni-bayesov-klasifikator.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#predpriprava">
+   Predpriprava
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#korenjenje-besed">
+   Korenjenje besed
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesov-izrek">
+   Bayesov izrek
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="naivni-bayesov-klasifikator">
+<h1>Naivni Bayesov klasifikator<a class="headerlink" href="#naivni-bayesov-klasifikator" title="Permalink to this headline">¶</a></h1>
+<p>Zanima nas, ali lahko iz opisa filma napovemo njegove žanre. Gre za <em>klasifikacijski problem</em>, saj želimo filme klasificirati v žanre, naša naloga pa je napisati ustrezen program, ki mu pravimo <em>klasifikator</em>.</p>
+<div class="section" id="predpriprava">
+<h2>Predpriprava<a class="headerlink" href="#predpriprava" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># naložimo paket</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># naložimo razpredelnico, s katero bomo delali</span>
+<span class="n">filmi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../02-zajem-podatkov/predavanja/obdelani-podatki/filmi.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">osebe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../02-zajem-podatkov/predavanja/obdelani-podatki/osebe.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">vloge</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../02-zajem-podatkov/predavanja/obdelani-podatki/vloge.csv&#39;</span><span class="p">)</span>
+<span class="n">zanri</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../02-zajem-podatkov/predavanja/obdelani-podatki/zanri.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="korenjenje-besed">
+<h2>Korenjenje besed<a class="headerlink" href="#korenjenje-besed" title="Permalink to this headline">¶</a></h2>
+<p>Da zadevo naredimo bolj obvladljivo, bomo opis predstavili le z množico korenov besed, ki se v opisu pojavljajo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">koren_besede</span><span class="p">(</span><span class="n">beseda</span><span class="p">):</span>
+    <span class="n">beseda</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">znak</span> <span class="k">for</span> <span class="n">znak</span> <span class="ow">in</span> <span class="n">beseda</span> <span class="k">if</span> <span class="n">znak</span><span class="o">.</span><span class="n">isalpha</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">beseda</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;$&#39;</span>
+    <span class="n">konec</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">beseda</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">beseda</span><span class="p">[</span><span class="n">konec</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39;ds&#39;</span><span class="p">:</span>
+        <span class="n">konec</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">konec</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">beseda</span><span class="p">[</span><span class="n">konec</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39;aeiou&#39;</span><span class="p">:</span>
+        <span class="n">konec</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">beseda</span><span class="p">[:</span><span class="n">konec</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">koreni_besed</span><span class="p">(</span><span class="n">niz</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">sorted</span><span class="p">({</span>
+        <span class="n">koren_besede</span><span class="p">(</span><span class="n">beseda</span><span class="p">)</span> <span class="k">for</span> <span class="n">beseda</span> <span class="ow">in</span> <span class="n">niz</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="n">beseda</span>
+    <span class="p">}))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">koreni_besed</span><span class="p">(</span><span class="s2">&quot;In 1938, after his father Professor Henry Jones, Sr. goes missing while pursuing the Holy Grail, Indiana Jones finds himself up against Adolf Hitler&#39;s Nazis again to stop them obtaining its powers.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0             $
+1         adolf
+2         after
+3         again
+4       against
+5        father
+6          find
+7             g
+8         grail
+9             h
+10        henry
+11      himself
+12       hitler
+13         holy
+14           in
+15       indian
+16           it
+17          jon
+18      missing
+19          naz
+20    obtaining
+21        power
+22    professor
+23     pursuing
+24           sr
+25         stop
+26            t
+27           th
+28         them
+29           up
+30         whil
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="bayesov-izrek">
+<h2>Bayesov izrek<a class="headerlink" href="#bayesov-izrek" title="Permalink to this headline">¶</a></h2>
+<p>Zanimala nas bo torej verjetnost, da ima film žanr <span class="math notranslate nohighlight">\(Ž_i\)</span> ob pogoju, da njegov opis vsebuje korene <span class="math notranslate nohighlight">\(K_1, \ldots, K_m\)</span>, torej</p>
+<div class="math notranslate nohighlight">
+\[P(Ž_i | K_1 \cap \cdots \cap K_n)\]</div>
+<p>Pri tem se bomo poslužili Bayesovega izreka</p>
+<div class="math notranslate nohighlight">
+\[P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B | A) \cdot P(A)}{P(B)}\]</div>
+<p>zaradi česar našemu klasifikatorju pravimo <em>Bayesov klasifikator</em>. Velja</p>
+<div class="math notranslate nohighlight">
+\[P(Ž_i | K_1 \cap \cdots \cap K_n) = \frac{P(K_1 \cap \cdots \cap K_n | Ž_i) \cdot P(Ž_i)}{P(K_1 \cap \cdots \cap K_n)}\]</div>
+<p>Nadalje si nalogo poenostavimo s predpostavko, da so pojavitve besed med seboj neodvisne. To sicer ni res, na primer ob besedi <em>treasure</em> se bolj pogosto pojavlja beseda <em>hidden</em> kot na primer <em>boring</em>, zato pravimo, da je klasifikator <em>naiven</em>. Ob tej predpostavki velja:</p>
+<div class="math notranslate nohighlight">
+\[P(K_1 \cap \cdots \cap K_n | Ž_i) = P(K_1 | Ž_i) \cdot \cdots \cdot P(K_n | Ž_i)\]</div>
+<p>oziroma</p>
+<div class="math notranslate nohighlight">
+\[P(Ž_i | K_1 \cap \cdots \cap K_n) = \frac{P(K_1 | Ž_i) \cdot \cdots \cdot P(K_n | Ž_i) \cdot P(Ž_i)}{P(K_1 \cap \cdots \cap K_n)}\]</div>
+<p>Filmu, katerega opis vsebuje korene <span class="math notranslate nohighlight">\(K_1, \dots, K_n\)</span> bomo priredili tiste žanre <span class="math notranslate nohighlight">\(Ž_i\)</span>, pri katerih je dana verjetnost največja. Ker imenovalec ni odvisen od žanra, moramo torej za vsak <span class="math notranslate nohighlight">\(Ž_i\)</span> izračunati le števec:</p>
+<div class="math notranslate nohighlight">
+\[P(K_1 | Ž_i) \cdot \cdots \cdot P(K_n | Ž_i) \cdot P(Ž_i)\]</div>
+<p>Vse te podatke znamo izračunati, zato se lahko lotimo dela.</p>
+<p>Verjetnost posameznega žanra <span class="math notranslate nohighlight">\(P(Ž)\)</span> izračunamo brez večjih težav:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verjetnosti_zanrov</span> <span class="o">=</span> <span class="n">zanri</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;zanr&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">filmi</span><span class="p">)</span>
+<span class="n">verjetnosti_zanrov</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zanr
+Film-Noir    0.0057
+Western      0.0119
+Musical      0.0137
+Sport        0.0201
+War          0.0237
+Music        0.0279
+History      0.0345
+Animation    0.0447
+Family       0.0524
+Biography    0.0633
+Sci-Fi       0.0707
+Fantasy      0.0751
+Mystery      0.0964
+Horror       0.1237
+Adventure    0.1609
+Thriller     0.1677
+Romance      0.1814
+Crime        0.1984
+Action       0.2401
+Comedy       0.3741
+Drama        0.5662
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Verjetnosti <span class="math notranslate nohighlight">\(P(K|Ž)\)</span> bomo shranili v razpredelnico, v kateri bodo vrstice ustrezale korenom <span class="math notranslate nohighlight">\(K\)</span>, stolpci pa žanrom <span class="math notranslate nohighlight">\(Ž\)</span>. Najprej moramo poiskati vse filme, ki imajo žanr <span class="math notranslate nohighlight">\(Ž\)</span>, njihov opis pa vsebuje koren <span class="math notranslate nohighlight">\(K\)</span>. Vzemimo vse opise filmov:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filmi</span><span class="o">.</span><span class="n">opis</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>id
+4972        The Stoneman family finds its friendship with ...
+6864        The story of a poor young woman, separated by ...
+9968        A frail waif, abused by her brutal boxer fathe...
+10323       Hypnotist Dr. Caligari uses a somnambulist, Ce...
+12349       The Tramp cares for an abandoned child, but ev...
+                                  ...                        
+11390036    Disheartened since her ex-husband&#39;s affair, Gr...
+11905962    The lone survivor of an enigmatic spaceship in...
+12393526    A man returns home after years to find his bro...
+12567088    The film follows a small town cop who is summo...
+12749596    Six friends hire a medium to hold a seance via...
+Name: opis, Length: 10000, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>To vrsto nizov pretvorimo v vrsto množic besed. Uporabimo metodo <code class="docutils literal notranslate"><span class="pre">apply</span></code>, ki dano funkcijo uporabi na vsakem vnosu.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filmi</span><span class="o">.</span><span class="n">opis</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="n">koreni_besed</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>45</th>
+      <th>46</th>
+      <th>47</th>
+      <th>48</th>
+      <th>49</th>
+      <th>50</th>
+      <th>51</th>
+      <th>52</th>
+      <th>53</th>
+      <th>54</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4972</th>
+      <td>affect</td>
+      <td>an</td>
+      <td>arm</td>
+      <td>assassination</td>
+      <td>birth</td>
+      <td>both</td>
+      <td>by</td>
+      <td>cameron</td>
+      <td>civil</td>
+      <td>development</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6864</th>
+      <td></td>
+      <td>an</td>
+      <td>baby</td>
+      <td>by</td>
+      <td>from</td>
+      <td>her</td>
+      <td>history</td>
+      <td>husban</td>
+      <td>interwoven</td>
+      <td>intoleranc</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9968</th>
+      <td></td>
+      <td>abus</td>
+      <td>befriend</td>
+      <td>boxer</td>
+      <td>brutal</td>
+      <td>by</td>
+      <td>chines</td>
+      <td>consequenc</td>
+      <td>district</td>
+      <td>father</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10323</th>
+      <td></td>
+      <td>caligar</td>
+      <td>cesar</td>
+      <td>commit</td>
+      <td>dr</td>
+      <td>hypnotist</td>
+      <td>murder</td>
+      <td>somnambulist</td>
+      <td>t</td>
+      <td>us</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>abandon</td>
+      <td>an</td>
+      <td>but</td>
+      <td>car</td>
+      <td>chil</td>
+      <td>event</td>
+      <td>for</td>
+      <td>in</td>
+      <td>jeopardy</td>
+      <td>put</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>11390036</th>
+      <td></td>
+      <td>affair</td>
+      <td>but</td>
+      <td>by</td>
+      <td>dishearten</td>
+      <td>erod</td>
+      <td>ex</td>
+      <td>feel</td>
+      <td>grac</td>
+      <td>her</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>11905962</th>
+      <td></td>
+      <td>alon</td>
+      <td>an</td>
+      <td>back</td>
+      <td>body</td>
+      <td>creatur</td>
+      <td>danger</td>
+      <td>enigmatic</td>
+      <td>h</td>
+      <td>hasnt</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12393526</th>
+      <td></td>
+      <td>abandon</td>
+      <td>after</td>
+      <td>an</td>
+      <td>ancestral</td>
+      <td>brid</td>
+      <td>brother</td>
+      <td>by</td>
+      <td>chil</td>
+      <td>death</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12567088</th>
+      <td></td>
+      <td>an</td>
+      <td>by</td>
+      <td>complicat</td>
+      <td>conflict</td>
+      <td>cop</td>
+      <td>death</td>
+      <td>family</td>
+      <td>film</td>
+      <td>follow</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12749596</th>
+      <td></td>
+      <td>bargain</td>
+      <td>but</td>
+      <td>during</td>
+      <td>far</td>
+      <td>for</td>
+      <td>friend</td>
+      <td>g</td>
+      <td>get</td>
+      <td>hir</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>10000 rows × 55 columns</p>
+</div></div></div>
+</div>
+<p>Po nekaj <a class="reference external" href="https://stackoverflow.com/questions/30885005/pandas-series-of-lists-to-one-series">iskanja po internetu</a> in masiranja pridemo do iskane razpredelnice:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">koreni_filmov</span> <span class="o">=</span> <span class="n">filmi</span><span class="o">.</span><span class="n">opis</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="n">koreni_besed</span>
+<span class="p">)</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span>
+    <span class="n">level</span><span class="o">=</span><span class="s1">&#39;id&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;film&#39;</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;koren&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="n">koreni_filmov</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>film</th>
+      <th>koren</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4972</td>
+      <td>affect</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4972</td>
+      <td>an</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4972</td>
+      <td>arm</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4972</td>
+      <td>assassination</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4972</td>
+      <td>birth</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>12749596</td>
+      <td>they</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>12749596</td>
+      <td>thing</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>12749596</td>
+      <td>v</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>12749596</td>
+      <td>wrong</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>12749596</td>
+      <td>zoom</td>
+    </tr>
+  </tbody>
+</table>
+<p>225294 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Razpredelnico združimo z razpredelnico žanrov, da dobimo razpredelnico korenov žanrov.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">koreni_zanrov</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">koreni_filmov</span><span class="p">,</span>
+    <span class="n">zanri</span>
+<span class="p">)[[</span><span class="s1">&#39;koren&#39;</span><span class="p">,</span> <span class="s1">&#39;zanr&#39;</span><span class="p">]]</span>
+<span class="n">koreni_zanrov</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>koren</th>
+      <th>zanr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>affect</td>
+      <td>Drama</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>affect</td>
+      <td>History</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>affect</td>
+      <td>War</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>an</td>
+      <td>Drama</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>an</td>
+      <td>History</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>576013</th>
+      <td>v</td>
+      <td>Mystery</td>
+    </tr>
+    <tr>
+      <th>576014</th>
+      <td>wrong</td>
+      <td>Horror</td>
+    </tr>
+    <tr>
+      <th>576015</th>
+      <td>wrong</td>
+      <td>Mystery</td>
+    </tr>
+    <tr>
+      <th>576016</th>
+      <td>zoom</td>
+      <td>Horror</td>
+    </tr>
+    <tr>
+      <th>576017</th>
+      <td>zoom</td>
+      <td>Mystery</td>
+    </tr>
+  </tbody>
+</table>
+<p>576018 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>S pomočjo funkcije <code class="docutils literal notranslate"><span class="pre">crosstab</span></code> preštejemo, kolikokrat se vsaka kombinacija pojavi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pojavitve_korenov_po_zanrih</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">koreni_zanrov</span><span class="o">.</span><span class="n">koren</span><span class="p">,</span> <span class="n">koreni_zanrov</span><span class="o">.</span><span class="n">zanr</span><span class="p">)</span>
+<span class="n">pojavitve_korenov_po_zanrih</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>zanr</th>
+      <th>Action</th>
+      <th>Adventure</th>
+      <th>Animation</th>
+      <th>Biography</th>
+      <th>Comedy</th>
+      <th>Crime</th>
+      <th>Drama</th>
+      <th>Family</th>
+      <th>Fantasy</th>
+      <th>Film-Noir</th>
+      <th>...</th>
+      <th>Horror</th>
+      <th>Music</th>
+      <th>Musical</th>
+      <th>Mystery</th>
+      <th>Romance</th>
+      <th>Sci-Fi</th>
+      <th>Sport</th>
+      <th>Thriller</th>
+      <th>War</th>
+      <th>Western</th>
+    </tr>
+    <tr>
+      <th>koren</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th></th>
+      <td>2167</td>
+      <td>1415</td>
+      <td>389</td>
+      <td>497</td>
+      <td>3311</td>
+      <td>1817</td>
+      <td>5073</td>
+      <td>454</td>
+      <td>673</td>
+      <td>54</td>
+      <td>...</td>
+      <td>1150</td>
+      <td>243</td>
+      <td>122</td>
+      <td>902</td>
+      <td>1605</td>
+      <td>655</td>
+      <td>170</td>
+      <td>1574</td>
+      <td>213</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th>$</th>
+      <td>233</td>
+      <td>148</td>
+      <td>33</td>
+      <td>147</td>
+      <td>359</td>
+      <td>184</td>
+      <td>685</td>
+      <td>44</td>
+      <td>51</td>
+      <td>2</td>
+      <td>...</td>
+      <td>110</td>
+      <td>29</td>
+      <td>8</td>
+      <td>78</td>
+      <td>171</td>
+      <td>86</td>
+      <td>30</td>
+      <td>148</td>
+      <td>48</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>aang</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>aaron</th>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>aart</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>zé</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>ángel</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>çanakkal</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>édith</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>émilien</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>15474 rows × 21 columns</p>
+</div></div></div>
+</div>
+<p>Iskane verjetnosti sedaj dobimo tako, da vsak stolpec delimo s številom filmov danega žanra. Da ne bomo dobili ničelne verjetnosti pri korenih, ki se v našem vzorcu ne pojavijo, verjetnost malenkost povečamo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verjetnosti_korenov_po_zanrih</span> <span class="o">=</span> <span class="n">pojavitve_korenov_po_zanrih</span> <span class="o">/</span> <span class="n">zanri</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;zanr&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.001</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Poglejmo, kaj so najpogostejši koreni pri nekaj žanrih:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verjetnosti_korenov_po_zanrih</span><span class="o">.</span><span class="n">Crime</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>koren
+          0.916827
+th        0.664306
+an        0.635577
+t         0.607855
+of        0.528722
+h         0.461685
+in        0.419851
+on        0.237895
+with      0.230335
+wh        0.188500
+for       0.181444
+by        0.162290
+when      0.141625
+after     0.128520
+from      0.127512
+their     0.120960
+murder    0.119952
+her       0.110375
+that      0.100294
+him       0.097774
+Name: Crime, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verjetnosti_korenov_po_zanrih</span><span class="o">.</span><span class="n">Romance</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>koren
+         0.885785
+an       0.636612
+th       0.623933
+t        0.567703
+of       0.462411
+in       0.450283
+h        0.426028
+with     0.322389
+her      0.273326
+on       0.218200
+lov      0.208828
+for      0.207174
+young    0.163073
+woman    0.159214
+wh       0.155355
+their    0.154252
+when     0.144881
+lif      0.132202
+man      0.131650
+sh       0.125587
+Name: Romance, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">verjetnosti_korenov_po_zanrih</span><span class="p">[</span><span class="s1">&#39;Sci-Fi&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>koren
+         0.927450
+th       0.692655
+an       0.651636
+t        0.645979
+of       0.524338
+in       0.435229
+h        0.360264
+on       0.248525
+with     0.211750
+for      0.174975
+that     0.170731
+from     0.167902
+by       0.155173
+their    0.150929
+when     0.135371
+after    0.131127
+earth    0.124055
+$        0.122641
+int      0.112740
+man      0.109911
+Name: Sci-Fi, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Žanre sedaj določimo tako, da za vsak žanr pomnožimo verjetnost žanra in pogojne verjetnosti vseh korenov, ki nastopajo v opisu filma.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">doloci_zanre</span><span class="p">(</span><span class="n">opis</span><span class="p">):</span>
+    <span class="n">faktorji_zanrov</span> <span class="o">=</span> <span class="n">verjetnosti_zanrov</span> <span class="o">*</span> <span class="n">verjetnosti_korenov_po_zanrih</span><span class="p">[</span>
+        <span class="n">verjetnosti_korenov_po_zanrih</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
+            <span class="n">koreni_besed</span><span class="p">(</span><span class="n">opis</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">prod</span><span class="p">()</span>
+    <span class="n">faktorji_zanrov</span> <span class="o">/=</span> <span class="nb">max</span><span class="p">(</span><span class="n">faktorji_zanrov</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">faktorji_zanrov</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doloci_zanre</span><span class="p">(</span><span class="s1">&#39;Alien space ship appears above Slovenia.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zanr
+Sci-Fi       1.000000
+Adventure    0.586644
+Animation    0.243516
+Action       0.222337
+Horror       0.197353
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">doloci_zanre</span><span class="p">(</span><span class="s1">&#39;A story about a young mathematician, who discovers her artistic side&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zanr
+Drama        1.000000
+Biography    0.756991
+Romance      0.297698
+Mystery      0.086731
+Comedy       0.081492
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="03-knjiznica-pandas.html" title="previous page">Knjižnica Pandas</a>
+    <a class='right-next' id="next-link" href="05-uvod-v-ocaml.html" title="next page">Uvod v OCaml</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Matija Pretnar<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
