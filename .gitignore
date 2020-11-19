@@ -20,3 +20,6 @@ _build
 
 test.ml
 test.py
+venv
+env
+node_modules
