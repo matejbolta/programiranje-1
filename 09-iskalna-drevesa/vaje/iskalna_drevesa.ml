@@ -13,7 +13,7 @@ type 'a tree =
 (*----------------------------------------------------------------------------*]
  Definirajmo si testni primer za preizkušanje funkcij v nadaljevanju. Testni
  primer predstavlja spodaj narisano drevo, pomagamo pa si s pomožno funkcijo
- [leaf], ki iz podatka zgradi list.
+ [leaf], ki iz podatka zgradi list (kot listek, ne seznam).
           5
          / \
         2   7
@@ -21,7 +21,11 @@ type 'a tree =
       0   6   11
 [*----------------------------------------------------------------------------*)
 
-let test_tree = Node (Node (Node (Empty, 0, Empty), 2, Empty), 5, Node (Node (Empty, 6, Empty), 7, Node (Empty, 11, Empty)))
+let test_tree_no_leaf = Node (Node (Node (Empty, 0, Empty), 2, Empty), 5, Node (Node (Empty, 6, Empty), 7, Node (Empty, 11, Empty)))
+
+let leaf x = Node (Empty, x, Empty)
+
+let test_tree = Node (Node (leaf 0, 2, Empty), 5, Node (leaf 6, 7, leaf 11))
 
 (*----------------------------------------------------------------------------*]
  Funkcija [mirror] vrne prezrcaljeno drevo. Na primeru [test_tree] torej vrne
@@ -87,7 +91,7 @@ let rec map_tree f tree = match tree with
 
 let rec list_of_tree = function
   | Empty -> []
-  assert false
+  | Node (l, x, d) -> list_of_tree l @ x @ list_of_tree d
 
 (*----------------------------------------------------------------------------*]
  Funkcija [is_bst] preveri ali je drevo binarno iskalno drevo (Binary Search 
