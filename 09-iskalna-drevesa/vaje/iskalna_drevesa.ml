@@ -108,7 +108,7 @@ let is_bst tree =
   let rec ascending_list = function
     | [] | _ :: [] -> true
     | x :: y :: tail ->
-      if x > y then false else ascending_list (y :: tail)
+      if x >= y then false else ascending_list (y :: tail)
   in
   tree |> list_of_tree |> ascending_list
 (* Uradna actually ista :o :) *)
@@ -131,7 +131,7 @@ let rec insert x tree = match tree with
   | Empty -> leaf x
   | Node (l, x', d) ->
     if x < x' then Node (insert x l, x', d)
-    else if x > x' then Node (l, x, insert x d)
+    else if x > x' then Node (l, x', insert x d)
     else tree
 
 let rec member2 x tree = match tree with
@@ -324,3 +324,21 @@ let rec dict_insert key value dict = match dict with
     if k = key then Node (l, (key, value), d)
     else if key < k then Node (dict_insert key value l, (k, v), d)
     else Node (l, (k, v), dict_insert key value d)
+
+
+
+(* ------------------------------
+
+let rec delete x = function
+  | Empty -> Empty
+  | Node(l, y, r) when x > y -> Node(l, y, delete x r)
+  | Node(l, y, r) when x < y -> Node(delete x l, y, r)
+  | Node(l, y, r) as bst -> (
+      (*Potrebno je izbrisati vozlišče.*)
+      match succ bst with
+      | None -> l (*To se zgodi le kadar je [r] enak [Empty].*)
+      | Some s ->
+        let clean_r = delete s r in
+        Node(l, s, clean_r))
+
+*)
