@@ -228,10 +228,27 @@ let pred tree = match tree with
  Node (Node (Empty, 6, Empty), 11, Empty))
 [*----------------------------------------------------------------------------*)
 
-let delete x tree =
+let rec delete x tree = (* succ *)
   match tree with
   | Empty -> Empty
-  | _ -> Empty (* TODO *)
+  | Node (l, x', d) as subtree ->
+    if x < x' then Node (delete x l, x', d)
+    else if x > x' then Node (l, x', delete x d)
+    else (* x = x' *)
+      match succ subtree with
+      | None -> (* smo na dnu drevesa, d = Empty *) l
+      | Some succx -> Node (l, succx, delete succx d)
+
+let rec delete' x tree = (* pred *)
+  match tree with
+  | Empty -> Empty
+  | Node (l, x', d) as subtree ->
+    if x < x' then Node (delete' x l, x', d)
+    else if x > x' then Node (l, x', delete' x d)
+    else (* x = x' *)
+      match pred subtree with
+      | None -> d
+      | Some predx -> Node (delete' predx l, predx, d)
 
 (*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*]
  SLOVARJI
@@ -324,21 +341,3 @@ let rec dict_insert key value dict = match dict with
     if k = key then Node (l, (key, value), d)
     else if key < k then Node (dict_insert key value l, (k, v), d)
     else Node (l, (k, v), dict_insert key value d)
-
-
-
-(* ------------------------------
-
-let rec delete x = function
-  | Empty -> Empty
-  | Node(l, y, r) when x > y -> Node(l, y, delete x r)
-  | Node(l, y, r) when x < y -> Node(delete x l, y, r)
-  | Node(l, y, r) as bst -> (
-      (*Potrebno je izbrisati vozlišče.*)
-      match succ bst with
-      | None -> l (*To se zgodi le kadar je [r] enak [Empty].*)
-      | Some s ->
-        let clean_r = delete s r in
-        Node(l, s, clean_r))
-
-*)
