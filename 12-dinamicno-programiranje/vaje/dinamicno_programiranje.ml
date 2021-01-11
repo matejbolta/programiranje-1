@@ -16,10 +16,52 @@
  - : int = 13
 [*----------------------------------------------------------------------------*)
 
-let test_matrix = 
+let test = 
   [| [| 1 ; 2 ; 0 |];
      [| 2 ; 4 ; 5 |];
      [| 7 ; 0 ; 1 |] |]
+(*  *)
+
+let max_cheese cheese = (* neučinkovito *)
+   let height = Array.length cheese - 1 in
+   let width = Array.length cheese.(0) - 1 in
+   let rec mouse x y =
+      (* Robni pogoji *)
+      if x = width && y = height then
+         cheese.(x).(y)
+      else if x = width then
+         let down = mouse x (y+1) in
+         cheese.(x).(y) + down
+      else if y = height then
+         let right = mouse (x+1) y in
+         cheese.(x).(y) + right
+      else
+
+      (* Delitev je desno ali dol *)
+         let down = mouse x (y+1) in
+         let right = mouse (x+1) y in
+
+      (* Združevanje *)
+         cheese.(x).(y) + max down right
+   in
+   mouse 0 0
+(*  *)
+
+let max_cheese' cheese = (* neučinkovito *)
+   let height = Array.length cheese in
+   let width = Array.length cheese.(0) in
+   let rec mouse x y =
+      (* Robni pogoji *)
+      if x = width || y = height then 0
+      else    
+      (* Delitev je desno ali dol *)
+         let down = mouse x (y+1) in
+         let right = mouse (x+1) y in
+      (* Združevanje *)
+         cheese.(x).(y) + max down right
+   in
+   mouse 0 0
+(*  *)
 
 (*----------------------------------------------------------------------------*]
  Poleg količine sira, ki jo miška lahko poje, jo zanima tudi točna pot, ki naj
@@ -38,6 +80,49 @@ let test_matrix =
 
 type mouse_direction = Down | Right
 
+let optimal_path matrix = (* modelirano po max_cheese' *)
+   let h = Array.length matrix
+   and w = Array.length matrix.(0) in
+   let rec mouse y x =
+      if y >= h || x >= w then 0, []
+      else
+         let right, path_right = mouse y (x+1) in
+         let down, path_down = mouse (y+1) x in
+         if right >= down then
+            (matrix.(y).(x) + right, Right::path_right)
+         else
+            (matrix.(y).(x) + down, Down::path_down)
+   in
+   mouse 0 0 |> snd |> List.rev |> List.tl |> List.rev
+(*  *)
+
+let optimal_path' matrix = (* modelirano po max_cheese *)
+   let height = Array.length matrix - 1 in
+   let width = Array.length matrix.(0) - 1 in
+   let rec mouse x y =
+      (* Robni pogoji *)
+      if x = width && y = height then
+         matrix.(x).(y), []
+      else if x = width then
+         let down_value, down_path = mouse x (y+1) in
+         matrix.(x).(y) + down_value, Down :: down_path
+      else if y = height then
+         let right_value, right_path = mouse (x+1) y in
+         matrix.(x).(y) + right_value, Right :: right_path
+      else
+
+      (* Delitev je desno ali dol *)
+      let down_value, down_path = mouse x (y+1) in
+      let right_value, right_path = mouse (x+1) y in
+
+      (* Združevanje *)
+      if down_value < right_value then
+         matrix.(x).(y) + down_value, Down :: down_path
+      else
+         matrix.(x).(y) + right_value, Right :: right_path
+   in
+   mouse 0 0 |> snd
+(*  *)
 
 (*----------------------------------------------------------------------------*]
  Rešujemo problem sestavljanja alternirajoče obarvanih stolpov. Imamo štiri
